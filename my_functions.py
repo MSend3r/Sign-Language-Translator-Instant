@@ -30,7 +30,7 @@ def image_process(image, model):
         results: The processed results containing sign landmarks.
     """
     # Set the image to read-only mode
-    image.flags.writeable = False
+    image.flags.writeable = True
     # Convert the image from BGR to RGB
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     # Process the image using the model

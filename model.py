@@ -18,7 +18,7 @@ PATH = os.path.join('data')
 actions = np.array(os.listdir(PATH))
 
 # Define the number of sequences and frames
-sequences = 30
+sequences = 10
 frames = 10
 
 # Create a label map to map each action label to a numeric value
@@ -40,7 +40,7 @@ for action, sequence in product(actions, range(sequences)):
 X, Y = np.array(landmarks), to_categorical(labels).astype(int)
 
 # Split the data into training and testing sets
-X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.10, random_state=34, stratify=Y)
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.20, random_state=34, stratify=Y)
 
 # Define the model architecture
 model = Sequential()
@@ -53,10 +53,10 @@ model.add(Dense(actions.shape[0], activation='softmax'))
 # Compile the model with Adam optimizer and categorical cross-entropy loss
 model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=['categorical_accuracy'])
 # Train the model
-model.fit(X_train, Y_train, epochs=100)
+model.fit(X_train, Y_train, epochs=20)
 
 # Save the trained model
-model.save('my_model')
+model.save('baseline_model')
 
 # Make predictions on the test set
 predictions = np.argmax(model.predict(X_test), axis=1)

@@ -9,7 +9,7 @@ import cv2
 from my_functions import *
 import keyboard
 from tensorflow.keras.models import load_model
-from gingerit.gingerit import GingerIt
+#from gingerit.gingerit import GingerIt
 
 # Set the path to the data directory
 PATH = os.path.join('data')
@@ -18,10 +18,10 @@ PATH = os.path.join('data')
 actions = np.array(os.listdir(PATH))
 
 # Load the trained model
-model = load_model('my_model')
+model = load_model('baseline_model')
 
 # Create an instance of the GingerIt grammar correction tool
-parser = GingerIt()
+#parser = GingerIt()
 
 # Initialize the lists
 sentence, keypoints, last_prediction, grammar, grammar_result = [], [], [], [], []
@@ -88,13 +88,13 @@ with mp.solutions.holistic.Holistic(min_detection_confidence=0.75, min_tracking_
                     sentence[-1] = sentence[-1].capitalize()
 
         # Perform grammar check if "Enter" is pressed
-        if keyboard.is_pressed('enter'):
+        if keyboard.is_pressed(' '):
             # Record the words in the sentence list into a single string
             text = ' '.join(sentence)
             # Parse the text to check and correct grammar using the parser instance
-            grammar = parser.parse(text)
+            #grammar = parser.parse(text)
             # Extract the corrected result from the parsed grammar
-            grammar_result = grammar['result']
+            grammar_result = text
 
         if grammar_result:
             # Calculate the size of the text to be displayed and the X coordinate for centering the text on the image

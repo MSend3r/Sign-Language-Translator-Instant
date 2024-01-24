@@ -10,17 +10,19 @@ from my_functions import *
 import keyboard
 
 # Define the actions (signs) that will be recorded and stored in the dataset
-actions = np.array(['a', 'b'])
+actions = np.array(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h','i', 'j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','hello','my','you','1','2','3','4','5','6','7','8','9','0'])
 
 # Define the number of sequences and frames to be recorded for each action
-sequences = 30
+sequences = 10
 frames = 10
+start = 0
+end = start + sequences
 
 # Set the path where the dataset will be stored
 PATH = os.path.join('data')
 
 # Create directories for each action, sequence, and frame in the dataset
-for action, sequence in product(actions, range(sequences)):
+for action, sequence in product(actions, range(start, end)):
     try:
         os.makedirs(os.path.join(PATH, action, str(sequence)))
     except:
@@ -35,11 +37,11 @@ if not cap.isOpened():
 # Create a MediaPipe Holistic object for hand tracking and landmark extraction
 with mp.solutions.holistic.Holistic(min_detection_confidence=0.75, min_tracking_confidence=0.75) as holistic:
     # Loop through each action, sequence, and frame to record data
-    for action, sequence, frame in product(actions, range(sequences), range(frames)):
+    for action, sequence, frame in product(actions, range(start, end), range(frames)):
         # If it is the first frame of a sequence, wait for the spacebar key press to start recording
         if frame == 0: 
             while True:
-                if keyboard.is_pressed(' '):
+                if keyboard.is_pressed(' ') or keyboard.is_pressed('q'):
                     break
                 _, image = cap.read()
 
@@ -79,6 +81,9 @@ with mp.solutions.holistic.Holistic(min_detection_confidence=0.75, min_tracking_
         frame_path = os.path.join(PATH, action, str(sequence), str(frame))
         np.save(frame_path, keypoints)
 
+         # Quit the data collection
+        if keyboard.is_pressed('q'):
+            break
     # Release the camera and close any remaining windows
     cap.release()
     cv2.destroyAllWindows()
