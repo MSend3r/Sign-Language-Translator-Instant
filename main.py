@@ -9,7 +9,7 @@ import cv2
 from my_functions import *
 import keyboard
 from tensorflow.keras.models import load_model
-#from gingerit.gingerit import GingerIt
+import language_tool_python as grammer_checker
 
 # Set the path to the data directory
 PATH = os.path.join('data')
@@ -21,7 +21,7 @@ actions = np.array(os.listdir(PATH))
 model = load_model('baseline_model')
 
 # Create an instance of the GingerIt grammar correction tool
-#parser = GingerIt()
+parser = grammer_checker.LanguageTool('en-US')
 
 # Initialize the lists
 sentence, keypoints, last_prediction, grammar, grammar_result = [], [], [], [], []
@@ -36,6 +36,9 @@ if not cap.isOpened():
 with mp.solutions.holistic.Holistic(min_detection_confidence=0.75, min_tracking_confidence=0.75) as holistic:
     # Run the loop while the camera is open
     while cap.isOpened():
+        #Quit the data collection
+        if keyboard.is_pressed('q'):
+            break
         # Read a frame from the camera
         _, image = cap.read()
         # Process the image and obtain sign landmarks using image_process function from my_functions.py
@@ -88,13 +91,13 @@ with mp.solutions.holistic.Holistic(min_detection_confidence=0.75, min_tracking_
                     sentence[-1] = sentence[-1].capitalize()
 
         # Perform grammar check if "Enter" is pressed
-        if keyboard.is_pressed(' '):
+        if keyboard.is_pressed('enter'):
             # Record the words in the sentence list into a single string
             text = ' '.join(sentence)
             # Parse the text to check and correct grammar using the parser instance
             #grammar = parser.parse(text)
             # Extract the corrected result from the parsed grammar
-            grammar_result = text
+            grammar_result = parser.correct(text) 
 
         if grammar_result:
             # Calculate the size of the text to be displayed and the X coordinate for centering the text on the image
@@ -120,7 +123,7 @@ with mp.solutions.holistic.Holistic(min_detection_confidence=0.75, min_tracking_
         # Check if the 'Camera' window was closed and break the loop
         if cv2.getWindowProperty('Camera',cv2.WND_PROP_VISIBLE) < 1:
             break
-
+            
     # Release the camera and close all windows
     cap.release()
     cv2.destroyAllWindows()

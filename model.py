@@ -53,7 +53,7 @@ model.add(Dense(actions.shape[0], activation='softmax'))
 # Compile the model with Adam optimizer and categorical cross-entropy loss
 model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=['categorical_accuracy'])
 # Train the model
-model.fit(X_train, Y_train, epochs=20)
+model.fit(X_train, Y_train, epochs=100)
 
 # Save the trained model
 model.save('baseline_model')
