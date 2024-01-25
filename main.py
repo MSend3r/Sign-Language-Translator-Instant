@@ -10,13 +10,10 @@ from my_functions import *
 import keyboard
 from tensorflow.keras.models import load_model
 import language_tool_python as grammer_checker
-from actions import full_actions
+from variables import actions, frames
 
 # Set the path to the data directory
 PATH = os.path.join('data')
-
-# Create an array of action labels by listing the contents of the data directory
-actions = full_actions
 
 # Load the trained model
 model = load_model('baseline_model')
@@ -50,7 +47,7 @@ with mp.solutions.holistic.Holistic(min_detection_confidence=0.75, min_tracking_
         keypoints.append(keypoint_extraction(results))
 
         # Check if 10 frames have been accumulated
-        if len(keypoints) == 10:
+        if len(keypoints) == frames:
             # Convert keypoints list to a numpy array
             keypoints = np.array(keypoints)
             # Make a prediction on the keypoints using the loaded model

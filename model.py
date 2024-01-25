@@ -10,16 +10,13 @@ from sklearn import metrics
 
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense
+from variables import actions, frames
 
 # Set the path to the data directory
 PATH = os.path.join('data')
 
-# Create an array of actions (signs) labels by listing the contents of the data directory
-actions = np.array(os.listdir(PATH))
-
 # Define the number of sequences and frames
-sequences = 10
-frames = 10
+sequences = 20
 
 # Create a label map to map each action label to a numeric value
 label_map = {label:num for num, label in enumerate(actions)}
@@ -44,7 +41,7 @@ X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.20, random
 
 # Define the model architecture
 model = Sequential()
-model.add(LSTM(32, return_sequences=True, activation='relu', input_shape=(10,126)))
+model.add(LSTM(32, return_sequences=True, activation='relu', input_shape=(frames,126)))
 model.add(LSTM(64, return_sequences=True, activation='relu'))
 model.add(LSTM(32, return_sequences=False, activation='relu'))
 model.add(Dense(32, activation='relu'))

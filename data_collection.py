@@ -8,14 +8,10 @@ import mediapipe as mp
 from itertools import product
 from my_functions import *
 import keyboard
-from actions import full_actions
+from variables import actions, frames
 
-# Define the actions (signs) that will be recorded and stored in the dataset
-#actions = full_actions
-actions = np.array(['blank'])
 # Define the number of sequences and frames to be recorded for each action
-sequences = 10
-frames = 10
+sequences = 20
 start = 0
 end = start + sequences
 
