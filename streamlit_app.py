@@ -136,6 +136,7 @@ def run_sign_detector():
         video_processor_factory=OpenCVVideoProcessor,
         async_processing=True,
     )
+    
 
 def main():
     st.title("Real Time Sign Language to Text by Maheep Singh")
