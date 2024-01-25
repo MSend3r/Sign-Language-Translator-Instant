@@ -27,6 +27,7 @@ parser = grammer_checker.LanguageTool('en-US')
 # Initialize the lists
 sentence, keypoints, last_prediction, grammar, grammar_result = [], [], [], [], []
 
+
 # Access the camera and check if the camera is opened successfully
 cap = cv2.VideoCapture(0)
 if not cap.isOpened():
@@ -36,12 +37,13 @@ if not cap.isOpened():
 # Create a holistic object for sign prediction
 with mp.solutions.holistic.Holistic(min_detection_confidence=0.75, min_tracking_confidence=0.75) as holistic:
     # Run the loop while the camera is open
-    while cap.isOpened():
+    while cap.isOpened() or cam:
         #Quit the data collection
         if keyboard.is_pressed('q'):
             break
         # Read a frame from the camera
         _, image = cap.read()
+            
         # Process the image and obtain sign landmarks using image_process function from my_functions.py
         results = image_process(image, holistic)
         # Draw the sign landmarks on the image using draw_landmarks function from my_functions.py
