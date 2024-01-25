@@ -1,6 +1,6 @@
 # %%
-
-# Import necessary libraries
+import streamlit as st
+#Import necessary libraries
 import numpy as np
 import os
 import string
@@ -11,6 +11,9 @@ import keyboard
 from tensorflow.keras.models import load_model
 import language_tool_python as grammer_checker
 from variables import actions, frames
+
+st.title("Real Time Sign Language to Text by Maheep Singh")
+st.header("Description of the app")
 
 # Set the path to the data directory
 PATH = os.path.join('data')
