@@ -3,7 +3,7 @@ language_tool_python
 mediapipe
 numpy
 opencv-python-headless
-scikit_learn
+scikit-learn
 tensorflow
 tensorflow_intel
 streamlit
