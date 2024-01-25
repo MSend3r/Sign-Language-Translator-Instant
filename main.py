@@ -27,11 +27,8 @@ parser = grammer_checker.LanguageTool('en-US')
 # Initialize the lists
 sentence, keypoints, last_prediction, grammar, grammar_result = [], [], [], [], []
 
-# FRAME_WINDOW = st.image([])
-picture = st.camera_input("Take a picture")
-
-if picture:
-    st.image(picture)
+# Streamlit camera
+cam = st.camera_input()
 
 # Access the camera and check if the camera is opened successfully
 cap = cv2.VideoCapture(0)
@@ -42,12 +39,18 @@ if not cap.isOpened():
 # Create a holistic object for sign prediction
 with mp.solutions.holistic.Holistic(min_detection_confidence=0.75, min_tracking_confidence=0.75) as holistic:
     # Run the loop while the camera is open
-    while cap.isOpened():
+    while cap.isOpened() or cam:
         #Quit the data collection
         if keyboard.is_pressed('q'):
             break
         # Read a frame from the camera
         _, image = cap.read()
+
+        # Get image from browser camera
+        if cam:
+            bytes_data = img_file_buffer.getvalue()
+            image = cv2.imdecode(np.frombuffer(bytes_data, np.uint8), cv2.IMREAD_COLOR)
+            
         # Process the image and obtain sign landmarks using image_process function from my_functions.py
         results = image_process(image, holistic)
         # Draw the sign landmarks on the image using draw_landmarks function from my_functions.py
@@ -126,6 +129,7 @@ with mp.solutions.holistic.Holistic(min_detection_confidence=0.75, min_tracking_
         # Show the image on the display
         cv2.imshow('Camera', image)
         # FRAME_WINDOW.image(frame)
+        st.image(image)
         cv2.waitKey(1)
 
         # Check if the 'Camera' window was closed and break the loop
