@@ -28,7 +28,7 @@ parser = grammer_checker.LanguageTool('en-US')
 sentence, keypoints, last_prediction, grammar, grammar_result = [], [], [], [], []
 
 # Streamlit camera
-cam = st.camera_input()
+cam = st.camera_input("Testing")
 
 # Access the camera and check if the camera is opened successfully
 cap = cv2.VideoCapture(0)
