@@ -27,8 +27,6 @@ parser = grammer_checker.LanguageTool('en-US')
 # Initialize the lists
 sentence, keypoints, last_prediction, grammar, grammar_result = [], [], [], [], []
 
-# Streamlit camera
-cam = st.camera_input("Testing")
 
 # Access the camera and check if the camera is opened successfully
 cap = cv2.VideoCapture(0)
@@ -45,11 +43,6 @@ with mp.solutions.holistic.Holistic(min_detection_confidence=0.75, min_tracking_
             break
         # Read a frame from the camera
         _, image = cap.read()
-
-        # Get image from browser camera
-        if cam:
-            bytes_data = cam.getvalue()
-            image = cv2.imdecode(np.frombuffer(bytes_data, np.uint8), cv2.IMREAD_COLOR)
             
         # Process the image and obtain sign landmarks using image_process function from my_functions.py
         results = image_process(image, holistic)
@@ -128,8 +121,6 @@ with mp.solutions.holistic.Holistic(min_detection_confidence=0.75, min_tracking_
 
         # Show the image on the display
         cv2.imshow('Camera', image)
-        # FRAME_WINDOW.image(frame)
-        st.image(image)
         cv2.waitKey(1)
 
         # Check if the 'Camera' window was closed and break the loop
