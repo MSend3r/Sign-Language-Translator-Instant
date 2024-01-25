@@ -10,12 +10,13 @@ from my_functions import *
 import keyboard
 from tensorflow.keras.models import load_model
 import language_tool_python as grammer_checker
+from actions import full_actions
 
 # Set the path to the data directory
 PATH = os.path.join('data')
 
 # Create an array of action labels by listing the contents of the data directory
-actions = np.array(os.listdir(PATH))
+actions = full_actions
 
 # Load the trained model
 model = load_model('baseline_model')
@@ -60,7 +61,7 @@ with mp.solutions.holistic.Holistic(min_detection_confidence=0.75, min_tracking_
             # Check if the maximum prediction value is above 0.9
             if np.amax(prediction) > 0.9:
                 # Check if the predicted sign is different from the previously predicted sign
-                if last_prediction != actions[np.argmax(prediction)]:
+                if last_prediction != actions[np.argmax(prediction)] and actions[np.argmax(prediction)] != 'blank':
                     # Append the predicted sign to the sentence list
                     sentence.append(actions[np.argmax(prediction)])
                     # Record a new prediction to use it on the next cycle
