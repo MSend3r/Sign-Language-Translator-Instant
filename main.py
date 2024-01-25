@@ -48,7 +48,7 @@ with mp.solutions.holistic.Holistic(min_detection_confidence=0.75, min_tracking_
 
         # Get image from browser camera
         if cam:
-            bytes_data = img_file_buffer.getvalue()
+            bytes_data = cam.getvalue()
             image = cv2.imdecode(np.frombuffer(bytes_data, np.uint8), cv2.IMREAD_COLOR)
             
         # Process the image and obtain sign landmarks using image_process function from my_functions.py
