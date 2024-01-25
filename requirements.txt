@@ -7,3 +7,4 @@ scikit-learn
 tensorflow
 tensorflow_intel
 streamlit
+streamlit_webrtc
