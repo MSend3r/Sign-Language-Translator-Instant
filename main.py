@@ -27,6 +27,8 @@ parser = grammer_checker.LanguageTool('en-US')
 # Initialize the lists
 sentence, keypoints, last_prediction, grammar, grammar_result = [], [], [], [], []
 
+FRAME_WINDOW = st.image([])
+
 # Access the camera and check if the camera is opened successfully
 cap = cv2.VideoCapture(0)
 if not cap.isOpened():
@@ -118,7 +120,8 @@ with mp.solutions.holistic.Holistic(min_detection_confidence=0.75, min_tracking_
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
 
         # Show the image on the display
-        cv2.imshow('Camera', image)
+        # cv2.imshow('Camera', image)
+        FRAME_WINDOW.image(frame)
         cv2.waitKey(1)
 
         # Check if the 'Camera' window was closed and break the loop
