@@ -27,7 +27,11 @@ parser = grammer_checker.LanguageTool('en-US')
 # Initialize the lists
 sentence, keypoints, last_prediction, grammar, grammar_result = [], [], [], [], []
 
-FRAME_WINDOW = st.image([])
+# FRAME_WINDOW = st.image([])
+picture = st.camera_input("Take a picture")
+
+if picture:
+    st.image(picture)
 
 # Access the camera and check if the camera is opened successfully
 cap = cv2.VideoCapture(0)
