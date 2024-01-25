@@ -1,9 +1,9 @@
-keyboard==0.13.5
-language_tool_python==2.7.1
+keyboard
+language_tool_python
 mediapipe
-numpy==1.26.3
+numpy
 opencv-python-headless
-scikit_learn==1.4.0
-tensorflow==2.15.0
+scikit_learn
+tensorflow
 tensorflow_intel
 streamlit
