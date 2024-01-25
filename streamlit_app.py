@@ -86,10 +86,13 @@ def video_frame_callback(frame):
             # Limit the sentence length to 7 elements to make sure it fits on the screen
             if len(sentence) > 7:
                 sentence = sentence[-7:]
+                # Moving grammar check to 7 signs detected
+                text = ' '.join(sentence)
+                grammar_result = parser.correct(text) 
 
-            # Reset if the "Spacebar" is pressed
-            if keyboard.is_pressed(' '):
-                sentence, keypoints, last_prediction, grammar_result = [], [], [], []
+            # # Reset if the "Spacebar" is pressed
+            # if keyboard.is_pressed(' '):
+            #     sentence, keypoints, last_prediction, grammar_result = [], [], [], []
 
             # Check if the list is not empty
             if sentence:
@@ -107,12 +110,12 @@ def video_frame_callback(frame):
                         sentence.pop(len(sentence) - 2)
                         sentence[-1] = sentence[-1].capitalize()
 
-            # Perform grammar check if "Enter" is pressed
-            if keyboard.is_pressed('enter'):
-                with lock:
-                    # Record the words in the sentence list into a single string
-                    text = ' '.join(sentence)
-                    grammar_result = parser.correct(text) 
+            # # Perform grammar check if "Enter" is pressed
+            # if keyboard.is_pressed('enter'):
+            #     with lock:
+            #         # Record the words in the sentence list into a single string
+            #         text = ' '.join(sentence)
+            #         grammar_result = parser.correct(text) 
 
             if grammar_result:
                 # Calculate the size of the text to be displayed and the X coordinate for centering the text on the image
