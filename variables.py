@@ -4,4 +4,4 @@ import numpy as np
 actions = np.sort(np.array(['name','a','b','me','blank']))
 #actions = np.sort(np.array(['123456yudfcvbfer']))
 
-frames = 15
+frames = 20
