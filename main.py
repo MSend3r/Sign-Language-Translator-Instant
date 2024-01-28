@@ -52,6 +52,7 @@ with mp.solutions.holistic.Holistic(min_detection_confidence=0.75, min_tracking_
         # Check if 10 frames have been accumulated
         if len(keypoints) == frames:
             # Convert keypoints list to a numpy array
+            print ("debug", len(keypoints))
             keypoints = np.array(keypoints)
             # Make a prediction on the keypoints using the loaded model
             prediction = model.predict(keypoints[np.newaxis, :, :])
@@ -63,6 +64,7 @@ with mp.solutions.holistic.Holistic(min_detection_confidence=0.75, min_tracking_
                 # Check if the predicted sign is different from the previously predicted sign
                 if last_prediction != actions[np.argmax(prediction)] and actions[np.argmax(prediction)] != 'blank':
                     # Append the predicted sign to the sentence list
+                    print ("debug:", np.argmax(prediction))
                     sentence.append(actions[np.argmax(prediction)])
                     # Record a new prediction to use it on the next cycle
                     last_prediction = actions[np.argmax(prediction)]

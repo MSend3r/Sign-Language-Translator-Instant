@@ -36,7 +36,7 @@ if not cap.isOpened():
 with mp.solutions.holistic.Holistic(min_detection_confidence=0.75, min_tracking_confidence=0.75) as holistic:
     # Loop through each action, sequence, and frame to record data
     #for action, sequence, frame in product(actions, range(start, end), range(frames)):
-    for action, sequence, frame in product(actions, range(sequences), range(frames))
+    for action, sequence, frame in product(actions, range(sequences), range(frames)):
         # If it is the first frame of a sequence, wait for the spacebar key press to start recording
         if frame == 0: 
             while True:
