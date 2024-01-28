@@ -19,7 +19,8 @@ end = start + sequences
 PATH = os.path.join('data')
 
 # Create directories for each action, sequence, and frame in the dataset
-for action, sequence in product(actions, range(start, end)):
+#for action, sequence in product(actions, range(start, end)):
+for action, sequence in product(actions, range(sequences)):
     try:
         os.makedirs(os.path.join(PATH, action, str(sequence)))
     except:
@@ -34,7 +35,8 @@ if not cap.isOpened():
 # Create a MediaPipe Holistic object for hand tracking and landmark extraction
 with mp.solutions.holistic.Holistic(min_detection_confidence=0.75, min_tracking_confidence=0.75) as holistic:
     # Loop through each action, sequence, and frame to record data
-    for action, sequence, frame in product(actions, range(start, end), range(frames)):
+    #for action, sequence, frame in product(actions, range(start, end), range(frames)):
+    for action, sequence, frame in product(actions, range(sequences), range(frames))
         # If it is the first frame of a sequence, wait for the spacebar key press to start recording
         if frame == 0: 
             while True:
